@@ -22,17 +22,14 @@ import java.util.List;
 public class PedidoService {
 
     private final ProdutoRepository produtoRepository;
-    private final PedidoRepository pedidoRepository;
     private final UsuarioRepository usuarioRepository;
     private final List<ProcessarPedidoService> processarPedidoServiceList;
 
     public PedidoService(ProdutoRepository produtoRepository,
-                         PedidoRepository pedidoRepository,
                          UsuarioRepository usuarioRepository,
                          List<ProcessarPedidoService> processarPedidoServiceList) {
 
         this.produtoRepository = produtoRepository;
-        this.pedidoRepository = pedidoRepository;
         this.usuarioRepository = usuarioRepository;
         this.processarPedidoServiceList = processarPedidoServiceList;
 

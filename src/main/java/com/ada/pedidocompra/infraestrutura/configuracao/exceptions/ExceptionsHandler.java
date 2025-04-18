@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -18,17 +17,21 @@ public class ExceptionsHandler {
 
     @ExceptionHandler({MethodArgumentNotValidException.class})
     public ResponseEntity<List<FieldErrorMessage>> methodArgumentNotValidException(MethodArgumentNotValidException ex) {
-        var errors = ex.getBindingResult().getFieldErrors().stream()
-                .map(fieldError -> {
-                    return new FieldErrorMessage(fieldError.getField(), fieldError.getDefaultMessage());
-                })
+
+        var errors = ex.getBindingResult()
+                .getFieldErrors()
+                .stream()
+                .map(fieldError -> new FieldErrorMessage(fieldError.getField(), fieldError.getDefaultMessage()))
                 .toList();
+
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
     }
 
     @ExceptionHandler({NegocioException.class})
     public ResponseEntity<ErrorMessage> negocioException(NegocioException negocioException) {
+
         var errorMessage = new ErrorMessage(HttpStatus.BAD_REQUEST.value(), negocioException.getMessage());
+
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
     }
 

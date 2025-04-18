@@ -16,7 +16,7 @@ public class ProfileCheck implements ApplicationRunner {
     private String activeProfile;
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void run(ApplicationArguments args) {
         if (activeProfile.isBlank()) {
             throw new IllegalStateException("❌ No active Spring profile set! Use --spring.profiles.active=dev or prod.");
         }
