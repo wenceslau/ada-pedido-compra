@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -36,9 +37,9 @@ public class SecurityConfig {
             AntPathRequestMatcher.antMatcher(HttpMethod.POST, "/clientes"),
     };
 
-    final UserServiceImpl userDetailsService;
+    final UserDetailsService userDetailsService;
 
-    public SecurityConfig(UserServiceImpl userDetailsService) {
+    public SecurityConfig(UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
 
